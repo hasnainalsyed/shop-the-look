@@ -19,10 +19,13 @@
       <div class="swiper-wrapper">
         <div class="swiper-slide">
           <div class="row h-100">
-            <div class="col-6 h-100">
+            <div class="col-6 h-100 position-relative">
               <img
                 src="https://fastly.picsum.photos/id/932/536/354.jpg?hmac=Rd2DUoI6aXKUNMI4ndHOqQyINA1EJX7U-o3k4q-H95U"
                 alt="">
+              <button class="btn btn-dot" style="left: 30%; top: 30%;"></button>
+              <button class="btn btn-dot" style="left: 10%; top: 20%;"></button>
+              <button class="btn btn-dot" style="left: 40%; top: 70%;"></button>
             </div>
             <div class="col-6 h-100">
               <div class="inner-swiper-container">
@@ -43,10 +46,13 @@
         </div>
         <div class="swiper-slide">
           <div class="row h-100">
-            <div class="col-6 h-100">
+            <div class="col-6 h-100 position-relative">
               <img
                 src="https://fastly.picsum.photos/id/932/536/354.jpg?hmac=Rd2DUoI6aXKUNMI4ndHOqQyINA1EJX7U-o3k4q-H95U"
                 alt="">
+              <button class="btn btn-dot" style="left: 30%; top: 10%;"></button>
+              <button class="btn btn-dot" style="left: 60%; top: 30%;"></button>
+              <button class="btn btn-dot" style="left: 40%; top: 70%;"></button>
             </div>
             <div class="col-6 h-100">
               <div class="inner-swiper-container">
@@ -67,10 +73,13 @@
         </div>
         <div class="swiper-slide">
           <div class="row h-100">
-            <div class="col-6 h-100">
+            <div class="col-6 h-100 position-relative">
               <img
                 src="https://fastly.picsum.photos/id/932/536/354.jpg?hmac=Rd2DUoI6aXKUNMI4ndHOqQyINA1EJX7U-o3k4q-H95U"
                 alt="">
+              <button class="btn btn-dot" style="left: 90%; top: 30%;"></button>
+              <button class="btn btn-dot" style="left: 20%; top: 50%;"></button>
+              <button class="btn btn-dot" style="left: 55%; top: 70%;"></button>
             </div>
             <div class="col-6 h-100">
               <div class="inner-swiper-container">
@@ -93,10 +102,15 @@
       <!-- Add navigation buttons -->
       <div class="main-nav">
         <button class="btn swiper-button-prev">
-          <svg viewBox="0 0 100 100"><path d="M 20,50 L 60,90 L 60,85 L 25,50  L 60,15 L 60,10 Z" class="arrow"></path></svg>
+          <svg viewBox="0 0 100 100">
+            <path d="M 20,50 L 60,90 L 60,85 L 25,50  L 60,15 L 60,10 Z" class="arrow"></path>
+          </svg>
         </button>
         <button class="btn swiper-button-next">
-          <svg viewBox="0 0 100 100"><path d="M 20,50 L 60,90 L 60,85 L 25,50  L 60,15 L 60,10 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg>
+          <svg viewBox="0 0 100 100">
+            <path d="M 20,50 L 60,90 L 60,85 L 25,50  L 60,15 L 60,10 Z" class="arrow"
+              transform="translate(100, 100) rotate(180) "></path>
+          </svg>
         </button>
       </div>
     </div>
@@ -106,41 +120,12 @@
 
 
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"></script> -->
+    crossorigin="anonymous"></script>
 
 
-  <script>
-    // Initialize Swiper with vertical slider
-    var swiper = new Swiper('.main-swiper-container', {
-      slidesPerView: 1, // Set the number of visible slides to 1
-      spaceBetween: 10, // Adjust the spacing between slides
-      // Add more configuration options as needed
-      // Configuration options for the main slider
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      }
-    });
-
-    var innerSwiper = new Swiper('.inner-swiper-container', {
-      direction: 'vertical',
-      spaceBetween: 10, // Adjust the spacing between slides
-      slidesPerView: 1, // Set the number of visible slides to 1
-      mousewheel: {
-        enabled: true
-      },
-      // other configuration options for the inner swiper
-    });
-
-    var innerSwiperContainer = document.querySelector('.inner-swiper-container');
-    innerSwiperContainer.addEventListener('wheel', function (event) {
-      event.preventDefault();
-      innerSwiper.slideTo(innerSwiper.activeIndex - Math.sign(event.deltaY));
-    });
-  </script>
-
+  <script src="scripts.js"></script>
 </body>
 
 </html>
