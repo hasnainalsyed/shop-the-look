@@ -31,7 +31,7 @@ function initInnerSwipers() {
       }
     });
 
-    var dotButtons = innerSwiperContainer.querySelectorAll('.btn-dot');
+    var dotButtons = innerSwiperContainer.parentElement.parentElement.querySelectorAll('.btn-dot');
 
     dotButtons.forEach(function (button, index) {
       button.addEventListener('click', function () {
