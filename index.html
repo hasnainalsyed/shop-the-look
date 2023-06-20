@@ -12,7 +12,7 @@
 
 <body>
 
-  <div class="h-vh"></div>
+  <!-- <div class="h-vh"></div> -->
   <!-- Your content here -->
   <div class="container">
     <div class="main-swiper-container">
@@ -90,10 +90,19 @@
           </div>
         </div>
       </div>
+      <!-- Add navigation buttons -->
+      <div class="main-nav">
+        <button class="btn swiper-button-prev">
+          <svg viewBox="0 0 100 100"><path d="M 20,50 L 60,90 L 60,85 L 25,50  L 60,15 L 60,10 Z" class="arrow"></path></svg>
+        </button>
+        <button class="btn swiper-button-next">
+          <svg viewBox="0 0 100 100"><path d="M 20,50 L 60,90 L 60,85 L 25,50  L 60,15 L 60,10 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg>
+        </button>
+      </div>
     </div>
   </div>
 
-  <div class="h-vh"></div>
+  <!-- <div class="h-vh"></div> -->
 
 
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -108,6 +117,11 @@
       slidesPerView: 1, // Set the number of visible slides to 1
       spaceBetween: 10, // Adjust the spacing between slides
       // Add more configuration options as needed
+      // Configuration options for the main slider
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
     });
 
     var innerSwiper = new Swiper('.inner-swiper-container', {

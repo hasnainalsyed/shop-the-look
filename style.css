@@ -7,6 +7,7 @@
   align-items: center;
   height: 80vh;
   overflow: hidden;
+  position: relative;
 }
 
 .main-swiper-container > .swiper-wrapper {
@@ -15,14 +16,43 @@
   align-items: center;
 }
 
+.main-swiper-container > .main-nav .btn {
+  position: absolute;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 100px;
+  height: 30px;
+  width: 30px;
+  border: none;
+}
+
+.main-swiper-container > .main-nav .btn::after {
+  content: none;
+}
+
+.main-swiper-container > .main-nav .btn svg {
+  height: 80%;
+  width: auto;
+}
+
 .main-swiper-container > .swiper-wrapper > .swiper-slide {
   width: 80%;
-  height: 500px;
+  height: 450px;
   list-style-type: none;
   background-color: rgba(0, 0, 0, 0.35);
-  border: 1px solid #fff;
-  border-radius: 50px;
+  border: 1px solid gray;
+  border-radius: 20px;
   padding: 20px;
+}
+
+.main-swiper-container > .swiper-wrapper > .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
 .inner-swiper-container {
@@ -38,7 +68,11 @@
 .inner-swiper-container .swiper-wrapper .swiper-slide {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.25);
-  border: 1px solid blue;
-  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
   padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
 }
