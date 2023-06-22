@@ -15,37 +15,6 @@ let mainSwiper = new Swiper('.main-swiper-container', {
   }
 });
 
-if (screenWidth <= 991) {
-  const mainSwiperSlides = document.querySelectorAll('.main-swiper-container > .swiper-wrapper > .swiper-slide');
-
-  mainSwiperSlides.forEach(function (slide, index) {
-    openPopup(slide, index);
-  });
-}
-
-function openPopup(slide, index) {
-  const popupSwipers = document.querySelectorAll('.swiper-slide.popup');
-  console.log(popupSwipers);
-
-  const dotButtons = slide.querySelectorAll('.btn-dot');
-  console.log(dotButtons);
-  dotButtons.forEach(function (button, btnIndex) {
-    button.addEventListener('click', function () {
-      console.log(index);
-      popupSwipers.forEach(function (popupSwiper) {
-        popupSwiper.classList.remove('visible');
-      });
-      for (let i = 0; i < popupSwipers.length; i++) {
-        if (index === i) {
-          popupSwipers[i].classList.add('visible');
-        }
-      }
-      // Open the corresponding popup based on the index of the clicked button
-    });
-  });
-}
-
-
 function initInnerSwipers() {
   const innerSwiperContainers = document.querySelectorAll('.inner-swiper-container');
 
@@ -91,21 +60,23 @@ function handleSlideChange(innerSwiperContainer) {
 }
 
 function initPopupSwipers() {
-  const popupSwiperContainer = document.querySelector('.popup-swiper-container');
-  let popupSwiper = new Swiper(popupSwiperContainer, {
-    slidesPerView: 1,
-    spaceBetween: 10,
-    on: {
-      init: function () {
-        handlePopupSlideChange(popupSwiperContainer);
-      },
-      slideChange: function () {
-        handlePopupSlideChange(popupSwiperContainer);
+  const popupSwiperContainers = document.querySelectorAll('.popup-swiper-container');
+  popupSwiperContainers.forEach(function (popupSwiperContainer) {
+    let popupSwiper = new Swiper(popupSwiperContainer, {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      on: {
+        init: function () {
+          handlePopupSlideChange(popupSwiperContainer);
+        },
+        slideChange: function () {
+          handlePopupSlideChange(popupSwiperContainer);
+        }
       }
-    }
+    });
+  
+    popupSwipers.push(popupSwiper);
   });
-
-  popupSwipers.push(popupSwiper);
 }
 
 function handlePopupSlideChange(popupSwiperContainer) {
@@ -125,6 +96,33 @@ function handlePopupSlideChange(popupSwiperContainer) {
   });
 }
 
+function openPopupBtns() {
+  const mainSwiperSlides = document.querySelectorAll('.main-swiper-container > .swiper-wrapper > .swiper-slide');
+
+  mainSwiperSlides.forEach(function (slide, index) {
+    openPopup(slide, index);
+  });
+}
+
+function openPopup(slide, index) {
+  const popupSwipers = document.querySelectorAll('.swiper-slide.popup');
+  console.log(popupSwipers);
+
+  const dotButtons = slide.querySelectorAll('.btn-dot');
+  dotButtons.forEach(function (button, btnIndex) {
+    button.addEventListener('click', function () {
+      popupSwipers.forEach(function (popupSwiper) {
+        popupSwiper.classList.remove('visible');
+      });
+      for (let i = 0; i < popupSwipers.length; i++) {
+        if (index === i) {
+          popupSwipers[i].classList.add('visible');
+        }
+      }
+      // Open the corresponding popup based on the index of the clicked button
+    });
+  });
+}
 
 function handleScreenSize(screenWidth) {
   if (screenWidth >= 991) {
@@ -145,6 +143,7 @@ function handleScreenSize(screenWidth) {
       let col = cols[i];
       col.remove();
     }
+    openPopupBtns();
     initPopupSwipers();
   }
 }
