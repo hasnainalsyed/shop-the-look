@@ -19,7 +19,7 @@
       <div class="swiper-wrapper">
         <div class="swiper-slide">
           <div class="row h-100">
-            <div class="col-6 h-100 position-relative">
+            <div class="col-lg-6 col-12 h-100 position-relative">
               <img
                 src="https://fastly.picsum.photos/id/932/536/354.jpg?hmac=Rd2DUoI6aXKUNMI4ndHOqQyINA1EJX7U-o3k4q-H95U"
                 alt="">
@@ -27,7 +27,7 @@
               <button class="btn btn-dot" style="left: 10%; top: 20%;"></button>
               <button class="btn btn-dot" style="left: 40%; top: 70%;"></button>
             </div>
-            <div class="col-6 h-100">
+            <div class="col-6 h-100 main-inner-swiper-container">
               <div class="inner-swiper-container">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
@@ -46,7 +46,7 @@
         </div>
         <div class="swiper-slide">
           <div class="row h-100">
-            <div class="col-6 h-100 position-relative">
+            <div class="col-lg-6 col-12 h-100 position-relative">
               <img
                 src="https://fastly.picsum.photos/id/932/536/354.jpg?hmac=Rd2DUoI6aXKUNMI4ndHOqQyINA1EJX7U-o3k4q-H95U"
                 alt="">
@@ -54,7 +54,7 @@
               <button class="btn btn-dot" style="left: 60%; top: 30%;"></button>
               <button class="btn btn-dot" style="left: 40%; top: 70%;"></button>
             </div>
-            <div class="col-6 h-100">
+            <div class="col-6 h-100 main-inner-swiper-container">
               <div class="inner-swiper-container">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
@@ -73,7 +73,7 @@
         </div>
         <div class="swiper-slide">
           <div class="row h-100">
-            <div class="col-6 h-100 position-relative">
+            <div class="col-lg-6 col-12 h-100 position-relative">
               <img
                 src="https://fastly.picsum.photos/id/932/536/354.jpg?hmac=Rd2DUoI6aXKUNMI4ndHOqQyINA1EJX7U-o3k4q-H95U"
                 alt="">
@@ -81,7 +81,7 @@
               <button class="btn btn-dot" style="left: 20%; top: 50%;"></button>
               <button class="btn btn-dot" style="left: 55%; top: 70%;"></button>
             </div>
-            <div class="col-6 h-100">
+            <div class="col-6 h-100 main-inner-swiper-container">
               <div class="inner-swiper-container">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
@@ -114,6 +114,55 @@
         </button>
       </div>
     </div>
+
+    <div class="swiper-slide popup">
+      <div class="popup-swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            1
+          </div>
+          <div class="swiper-slide">
+            2
+          </div>
+          <div class="swiper-slide">
+            3
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-close"></button>
+    </div>
+    <div class="swiper-slide popup">
+      <div class="popup-swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            1
+          </div>
+          <div class="swiper-slide">
+            2
+          </div>
+          <div class="swiper-slide">
+            3
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-close"></button>
+    </div>
+    <div class="swiper-slide popup">
+      <div class="popup-swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            1
+          </div>
+          <div class="swiper-slide">
+            2
+          </div>
+          <div class="swiper-slide">
+            3
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-close"></button>
+    </div>
   </div>
 
   <!-- <div class="h-vh"></div> -->
@@ -124,8 +173,178 @@
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
     crossorigin="anonymous"></script>
 
+  <!-- <script src="new.js"></script> -->
 
-  <script src="scripts.js"></script>
+  <script>
+    let screenWidth = window.innerWidth || document.documentElement.clientWidth;
+    let innerSwipers = [];
+    let popupSwipers = [];
+    const popupSlides = document.querySelectorAll('.swiper-slide.popup');
+    const rows = document.querySelectorAll('.swiper-slide .row');
+    let cols = [];
+
+    // Initialize Swiper with vertical slider
+    let mainSwiper = new Swiper('.main-swiper-container', {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }
+    });
+
+    if (screenWidth <= 991) {
+      const mainSwiperSlides = document.querySelectorAll('.main-swiper-container > .swiper-wrapper > .swiper-slide');
+
+      mainSwiperSlides.forEach(function (slide, index) {
+        openPopup(slide, index);
+      });
+    }
+
+    function openPopup(slide, index) {
+      const popupSwipers = document.querySelectorAll('.swiper-slide.popup');
+      console.log(popupSwipers);
+
+      const dotButtons = slide.querySelectorAll('.btn-dot');
+      console.log(dotButtons);
+      dotButtons.forEach(function (button, btnIndex) {
+        button.addEventListener('click', function () {
+          console.log(index);
+          popupSwipers.forEach(function (popupSwiper) {
+            popupSwiper.classList.remove('visible');
+          });
+          for (let i = 0; i < popupSwipers.length; i++) {
+            if (index === i) {
+              popupSwipers[i].classList.add('visible');
+            }
+          }
+          // Open the corresponding popup based on the index of the clicked button
+        });
+      });
+    }
+
+
+    function initInnerSwipers() {
+      const innerSwiperContainers = document.querySelectorAll('.inner-swiper-container');
+
+      innerSwiperContainers.forEach(function (innerSwiperContainer) {
+        let innerSwiper = new Swiper(innerSwiperContainer, {
+          direction: 'vertical',
+          spaceBetween: 10,
+          slidesPerView: 1,
+          mousewheel: {
+            enabled: true
+          },
+          on: {
+            init: function () {
+              handleSlideChange(innerSwiperContainer);
+            },
+            slideChange: function () {
+              handleSlideChange(innerSwiperContainer);
+            }
+          }
+        });
+
+        const dotButtons = innerSwiperContainer.parentElement.parentElement.querySelectorAll('.btn-dot');
+
+        dotButtons.forEach(function (button, index) {
+          button.addEventListener('click', function () {
+            innerSwiper.slideTo(index);
+          });
+        });
+      });
+    }
+
+    function handleSlideChange(innerSwiperContainer) {
+      const activeIndex = innerSwiperContainer.swiper.activeIndex;
+      const dotButtons = innerSwiperContainer.parentElement.parentElement.querySelectorAll('.btn-dot');
+
+      dotButtons.forEach(function (button, index) {
+        if (index === activeIndex) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
+        }
+      });
+    }
+
+    function initPopupSwipers() {
+      const popupSwiperContainer = document.querySelector('.popup-swiper-container');
+      let popupSwiper = new Swiper(popupSwiperContainer, {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        on: {
+          init: function () {
+            handlePopupSlideChange(popupSwiperContainer);
+          },
+          slideChange: function () {
+            handlePopupSlideChange(popupSwiperContainer);
+          }
+        }
+      });
+
+      popupSwipers.push(popupSwiper);
+    }
+
+    function handlePopupSlideChange(popupSwiperContainer) {
+      const activeIndex = popupSwiperContainer.swiper.activeIndex;
+
+      const mainSwiperSlides = document.querySelectorAll('.main-swiper-container > .swiper-wrapper > .swiper-slide');
+
+      mainSwiperSlides.forEach(function (slide) {
+        const dotButtons = slide.querySelectorAll('.btn-dot');
+        dotButtons.forEach(function (button, index) {
+          if (index === activeIndex) {
+            button.classList.add('active');
+          } else {
+            button.classList.remove('active');
+          }
+        });
+      });
+    }
+
+
+    function handleScreenSize(screenWidth) {
+      if (screenWidth >= 991) {
+        popupSlides.forEach(function (slide) {
+          slide.remove();
+        });
+        for (let i = 0; i < cols.length; i++) {
+          let col = cols[i];
+          let row = rows[i];
+          row.appendChild(col);
+        }
+        initInnerSwipers();
+      } else {
+        popupSlides.forEach(function (slide) {
+          document.querySelector('.container').appendChild(slide);
+        });
+        for (let i = 0; i < cols.length; i++) {
+          let col = cols[i];
+          col.remove();
+        }
+        initPopupSwipers();
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', function () {
+      const rows = document.querySelectorAll('.swiper-slide .row');
+
+      rows.forEach(row => {
+        let col = row.querySelector('.main-inner-swiper-container');
+        innerSwipers.push(col);
+        cols.push(col);
+      });
+
+      handleScreenSize(screenWidth);
+
+      window.addEventListener('resize', function () {
+        screenWidth = window.innerWidth || document.documentElement.clientWidth;
+        handleScreenSize(screenWidth);
+      });
+    });
+
+  </script>
 </body>
 
 </html>
