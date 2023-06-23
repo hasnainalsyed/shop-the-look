@@ -87,10 +87,6 @@
   transition: all 0.5s cubic-bezier(.93,-.01,0,1.02);
 }
 
-.container .shop-the-look.pop {
-  transform: scale(2);
-}
-
 .container .shop-the-look.pop .main-nav {
   display: none;
 }

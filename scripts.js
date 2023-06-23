@@ -3,6 +3,7 @@ let innerSwipers = [];
 let popupSwipers = [];
 const popupSlides = document.querySelectorAll('.swiper-slide.popup');
 const rows = document.querySelectorAll('.swiper-slide .row');
+const mainSwiperSlides = document.querySelectorAll('.main-swiper-container > .swiper-wrapper > .swiper-slide');
 let cols = [];
 
 // Initialize Swiper with vertical slider
@@ -61,35 +62,44 @@ function handleSlideChange(innerSwiperContainer) {
 
 function initPopupSwipers() {
   const popupSwiperContainers = document.querySelectorAll('.popup-swiper-container');
-  popupSwiperContainers.forEach(function (popupSwiperContainer) {
+  popupSwiperContainers.forEach(function (popupSwiperContainer, popupSwiperContainerIndex) {
     let popupSwiper = new Swiper(popupSwiperContainer, {
       slidesPerView: 1,
       spaceBetween: 10,
       on: {
         init: function () {
-          handlePopupSlideChange(popupSwiperContainer);
+          handlePopupSlideChange(popupSwiperContainer, popupSwiperContainerIndex);
         },
         slideChange: function () {
-          handlePopupSlideChange(popupSwiperContainer);
+          handlePopupSlideChange(popupSwiperContainer, popupSwiperContainerIndex);
         }
       }
+    });
+
+    mainSwiperSlides.forEach(function (slide, slideIndex) {
+      const dotButtons = slide.querySelectorAll('.btn-dot');
+      dotButtons.forEach(function (button, index) {
+        button.addEventListener('click', function () {
+          if (slideIndex === popupSwiperContainerIndex) {
+            popupSwiper.slideTo(index);
+          }
+        })
+      });
     });
 
     popupSwipers.push(popupSwiper);
   });
 }
 
-function handlePopupSlideChange(popupSwiperContainer) {
+function handlePopupSlideChange(popupSwiperContainer, popupSwiperContainerIndex) {
   const activeIndex = popupSwiperContainer.swiper.activeIndex;
 
-  const mainSwiperSlides = document.querySelectorAll('.main-swiper-container > .swiper-wrapper > .swiper-slide');
-
-  mainSwiperSlides.forEach(function (slide) {
+  mainSwiperSlides.forEach(function (slide, slideIndex) {
     const dotButtons = slide.querySelectorAll('.btn-dot');
     dotButtons.forEach(function (button, index) {
-      if (index === activeIndex) {
+      if (index === activeIndex && slideIndex === popupSwiperContainerIndex) {
         button.classList.add('active');
-      } else {
+      } else if (slideIndex === popupSwiperContainerIndex) {
         button.classList.remove('active');
       }
     });
@@ -97,7 +107,6 @@ function handlePopupSlideChange(popupSwiperContainer) {
 }
 
 function openPopupBtns() {
-  const mainSwiperSlides = document.querySelectorAll('.main-swiper-container > .swiper-wrapper > .swiper-slide');
   const popupSwipers = document.querySelectorAll('.swiper-slide.popup');
   const mainContainer = document.querySelector('.shop-the-look');
   // const dotButtons = document.querySelectorAll('.btn-dot');
@@ -119,6 +128,7 @@ function openPopupBtns() {
             scaleMainContainer();
             isMainContainerScaled = true;
           }
+          // const popupSwiperContainer = popupSwipers[index].querySelector('.popup-swiper-container');
         }
       });
     });
@@ -157,10 +167,13 @@ function openPopupBtns() {
   function scaleMainContainer() {
     const screenWidth = window.innerWidth || document.documentElement.clientWidth;
     const screenHeight = window.innerHeight || document.documentElement.clientHeight;
-    const containerBounds = mainContainer.getBoundingClientRect();
 
-    const scaleX = screenWidth / containerBounds.width;
-    const scaleY = screenHeight / containerBounds.height;
+    const containerBounds = mainContainer.getBoundingClientRect();
+    const containerWidth = containerBounds.width;
+    const containerHeight = containerBounds.height;
+
+    const scaleX = screenWidth / containerWidth;
+    const scaleY = screenHeight / containerHeight;
     const scale = Math.max(scaleX, scaleY);
 
     mainContainer.style.transformOrigin = 'center center';
@@ -171,8 +184,6 @@ function openPopupBtns() {
     mainContainer.style.transform = '';
   }
 }
-
-
 
 function handleScreenSize(screenWidth) {
   if (screenWidth >= 991) {
