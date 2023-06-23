@@ -74,7 +74,7 @@ function initPopupSwipers() {
         }
       }
     });
-  
+
     popupSwipers.push(popupSwiper);
   });
 }
@@ -98,31 +98,81 @@ function handlePopupSlideChange(popupSwiperContainer) {
 
 function openPopupBtns() {
   const mainSwiperSlides = document.querySelectorAll('.main-swiper-container > .swiper-wrapper > .swiper-slide');
+  const popupSwipers = document.querySelectorAll('.swiper-slide.popup');
+  const mainContainer = document.querySelector('.shop-the-look');
+  // const dotButtons = document.querySelectorAll('.btn-dot');
+  let isMainSwiperDisabled = false;
+  let isMainContainerScaled = false;
 
   mainSwiperSlides.forEach(function (slide, index) {
-    openPopup(slide, index);
-  });
-}
-
-function openPopup(slide, index) {
-  const popupSwipers = document.querySelectorAll('.swiper-slide.popup');
-  console.log(popupSwipers);
-
-  const dotButtons = slide.querySelectorAll('.btn-dot');
-  dotButtons.forEach(function (button, btnIndex) {
-    button.addEventListener('click', function () {
-      popupSwipers.forEach(function (popupSwiper) {
-        popupSwiper.classList.remove('visible');
-      });
-      for (let i = 0; i < popupSwipers.length; i++) {
-        if (index === i) {
-          popupSwipers[i].classList.add('visible');
+    const dotButtons = slide.querySelectorAll('.btn-dot');
+    dotButtons.forEach(function (button, btnIndex) {
+      button.addEventListener('click', function () {
+        popupSwipers.forEach(function (popupSwiper) {
+          popupSwiper.classList.remove('visible');
+        });
+        if (index < popupSwipers.length) {
+          mainContainer.classList.add('pop');
+          popupSwipers[index].classList.add('visible');
+          disableMainSwiper();
+          if (!isMainContainerScaled) {
+            scaleMainContainer();
+            isMainContainerScaled = true;
+          }
         }
-      }
-      // Open the corresponding popup based on the index of the clicked button
+      });
     });
   });
+
+  // Add event listener to each close button
+  const closeButtons = document.querySelectorAll('.btn-close');
+  closeButtons.forEach(function (closeButton) {
+    closeButton.addEventListener('click', function () {
+      const popup = closeButton.closest('.swiper-slide.popup');
+      popup.classList.remove('visible');
+      mainContainer.classList.remove('pop');
+      enableMainSwiper();
+      if (isMainContainerScaled) {
+        resetMainContainerTransform();
+        isMainContainerScaled = false;
+      }
+    });
+  });
+
+
+  function disableMainSwiper() {
+    if (!isMainSwiperDisabled) {
+      mainSwiper.disable();
+      isMainSwiperDisabled = true;
+    }
+  }
+
+  function enableMainSwiper() {
+    if (isMainSwiperDisabled) {
+      mainSwiper.enable();
+      isMainSwiperDisabled = false;
+    }
+  }
+
+  function scaleMainContainer() {
+    const screenWidth = window.innerWidth || document.documentElement.clientWidth;
+    const screenHeight = window.innerHeight || document.documentElement.clientHeight;
+    const containerBounds = mainContainer.getBoundingClientRect();
+
+    const scaleX = screenWidth / containerBounds.width;
+    const scaleY = screenHeight / containerBounds.height;
+    const scale = Math.max(scaleX, scaleY);
+
+    mainContainer.style.transformOrigin = 'center center';
+    mainContainer.style.transform = `scale(${scale})`;
+  }
+
+  function resetMainContainerTransform() {
+    mainContainer.style.transform = '';
+  }
 }
+
+
 
 function handleScreenSize(screenWidth) {
   if (screenWidth >= 991) {
