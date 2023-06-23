@@ -1,10 +1,10 @@
-let screenWidth = window.innerWidth || document.documentElement.clientWidth;
+let cols = [];
 let innerSwipers = [];
 let popupSwipers = [];
-const popupSlides = document.querySelectorAll('.swiper-slide.popup');
 const rows = document.querySelectorAll('.swiper-slide .row');
+const popupSlides = document.querySelectorAll('.swiper-slide.popup');
+let screenWidth = window.innerWidth || document.documentElement.clientWidth;
 const mainSwiperSlides = document.querySelectorAll('.main-swiper-container > .swiper-wrapper > .swiper-slide');
-let cols = [];
 
 // Initialize Swiper with vertical slider
 let mainSwiper = new Swiper('.main-swiper-container', {
